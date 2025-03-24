@@ -2,6 +2,7 @@ package com.example.myapplication.ui.signin
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,6 +29,7 @@ import com.example.myapplication.data.model.ErrorMessage
 import kotlinx.serialization.Serializable
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.myapplication.R
+import com.example.myapplication.ui.google.SignInWithGoogleButton
 
 @Serializable
 object SignInRoute
@@ -44,6 +46,7 @@ fun SignInScreen(
         openWelcomeScreen()
     } else {
         SignInScreenContent(
+            openWelcomeScreen = openWelcomeScreen,
             openSignUpScreen = openSignUpScreen,
             signIn = viewModel::signIn,
             showErrorSnackbar = showErrorSnackbar
@@ -53,15 +56,22 @@ fun SignInScreen(
 
 @Composable
 fun SignInScreenContent(
+    openWelcomeScreen: () -> Unit,
     openSignUpScreen: () -> Unit,
     signIn: (String, String, (ErrorMessage) -> Unit) -> Unit,
     showErrorSnackbar: (ErrorMessage) -> Unit
 ) {
-    var email by remember { mutableStateOf("test@test.com") }
-    var password by remember { mutableStateOf("123456Qa") }
+    var email by remember { mutableStateOf("man@man.com") }
+    var password by remember { mutableStateOf("123456") }
     Column(modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(
+            text = stringResource(R.string.sign_in),
+            textAlign = TextAlign.Center,
+            fontSize = 24.sp
+        )
+        Spacer(Modifier.size(32.dp))
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()
@@ -81,12 +91,16 @@ fun SignInScreenContent(
                 visualTransformation = PasswordVisualTransformation()
         )
         Spacer(Modifier.size(32.dp))
-        Button(
-            onClick = {
-                signIn(email, password, showErrorSnackbar)
-            }) {
-            Text(stringResource(R.string.sign_in))
+        Row {
+            Button(
+                onClick = {
+                    signIn(email, password, showErrorSnackbar)
+                }) {
+                Text(stringResource(R.string.sign_in))
+            }
         }
+        Spacer(Modifier.size(16.dp))
+        SignInWithGoogleButton(openWelcomeScreen)
         Spacer(Modifier.size(16.dp))
         TextButton(onClick = openSignUpScreen) {
             Text(
@@ -95,5 +109,6 @@ fun SignInScreenContent(
                 fontSize = 16.sp
             )
         }
+
     }
 }

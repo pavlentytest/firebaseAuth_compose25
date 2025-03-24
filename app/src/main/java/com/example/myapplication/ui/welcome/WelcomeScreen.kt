@@ -33,7 +33,7 @@ object WelcomeRoute
 @Composable
 fun WelcomeScreen(openSignInScreen: () -> Unit,
                   showErrorSnackbar: (ErrorMessage) -> Unit,
-                   viewModel: WelcomeViewModel = hiltViewModel()) {
+                  viewModel: WelcomeViewModel = hiltViewModel()) {
     val shouldRestartApp by viewModel.shouldRestartApp.collectAsStateWithLifecycle()
     if (shouldRestartApp) {
         openSignInScreen()
@@ -52,7 +52,7 @@ fun WelcomeScreenContent(
     Column(modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(stringResource(R.string.user, auth().uid.toString()))
+        Text(stringResource(R.string.user, auth().currentUser.toString()))
         Button(onClick = { signOut() }) {
             Text(stringResource(R.string.sign_out))
         }

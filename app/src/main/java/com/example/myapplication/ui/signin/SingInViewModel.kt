@@ -27,5 +27,6 @@ class SignInViewModel @Inject constructor(
             _shouldRestartApp.value = true
         }
     }
+
 }
 

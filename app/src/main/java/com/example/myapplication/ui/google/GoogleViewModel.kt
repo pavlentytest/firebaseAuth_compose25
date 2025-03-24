@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.welcome
+package com.example.myapplication.ui.google
 
 import com.example.myapplication.MainViewModel
 import com.example.myapplication.data.model.ErrorMessage
@@ -10,18 +10,19 @@ import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class WelcomeViewModel @Inject constructor(
+class GoogleViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ) : MainViewModel() {
     private val _shouldRestartApp = MutableStateFlow(false)
     val shouldRestartApp: StateFlow<Boolean>
         get() = _shouldRestartApp.asStateFlow()
+    private val _userData = MutableStateFlow("Empty")
+    val userData: StateFlow<String>
+        get() = _userData.asStateFlow()
 
-    fun signOut() {
-        launchCatching {
-            authRepository.signOut()
-            _shouldRestartApp.value = true
-        }
+    fun signInGoogle(data: String) {
+        _shouldRestartApp.value = true
+        _userData.value = data
     }
-
 }
+
