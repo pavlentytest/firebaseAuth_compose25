@@ -13,14 +13,17 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.data.model.ErrorMessage
-import com.example.myapplication.ui.google.SignInWithGoogleButton
+import com.example.myapplication.data.storage.DataStore
 import com.example.myapplication.ui.signin.SignInRoute
 import com.example.myapplication.ui.signin.SignInScreen
 import com.example.myapplication.ui.signup.SignUpRoute
@@ -30,6 +33,7 @@ import com.example.myapplication.ui.welcome.WelcomeRoute
 import com.example.myapplication.ui.welcome.WelcomeScreen
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import androidx.compose.runtime.collectAsState
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -37,6 +41,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+
+
             val scope = rememberCoroutineScope()
             val snackbarHostState = remember { SnackbarHostState() }
             val navController = rememberNavController()

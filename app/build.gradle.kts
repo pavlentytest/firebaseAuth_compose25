@@ -73,5 +73,6 @@ dependencies {
     //Firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
+    implementation("androidx.datastore:datastore-preferences:1.1.3")
 
 }

@@ -30,8 +30,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.myapplication.R
+import com.example.myapplication.data.storage.DataStore
 import com.example.myapplication.ui.signin.SignInScreenContent
 import com.example.myapplication.ui.signin.SignInViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
 
 @Composable
@@ -68,6 +71,7 @@ private fun doGoogleSignIn(
     context: Context,
 ) {
     val credentialManager = CredentialManager.create(context)
+    val store = DataStore(context)
     fun getSignInWithGoogleOption(context: Context): GetGoogleIdOption {
         return GetGoogleIdOption.Builder()
             .setServerClientId(context.getString(R.string.web_client_id))
@@ -84,7 +88,10 @@ private fun doGoogleSignIn(
                 request = googleSignRequest,
                 context = context,
             )
-            googleViewModel.signInGoogle(result.credential.data.toString())
+            googleViewModel.signInGoogle()
+            withContext(Dispatchers.IO) {
+                store.saveData(result.credential.data.toString())
+            }
             Log.d("RRR",result.credential.data.toString())
         } catch (e: Exception) {
             Log.e("RRR",e.message.toString())

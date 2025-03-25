@@ -5,8 +5,9 @@
     <string name="sign_up_text">Don\’t have an account yet? \n Click here to sign up</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="sign_in">Sign In</string>
-    <string name="sign_out">Sign Out</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="sign_out">Sign out</string>
     <string name="user">User: %1$s</string>
     <string name="sign_up_with_email">Sign up with email</string>
     <string name="web_client_id">941626851158-q6le5tbtpiqe2f7poia7k3kpg59or7io.apps.googleusercontent.com</string>

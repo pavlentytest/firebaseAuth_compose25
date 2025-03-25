@@ -11,6 +11,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 open class MainViewModel : ViewModel() {
+
+    private val _userData = MutableStateFlow("")
+    val userData: StateFlow<String>
+        get() = _userData.asStateFlow()
+
     fun launchCatching(
         showErrorSnackbar: (ErrorMessage) -> Unit = {},
         block: suspend CoroutineScope.() -> Unit
